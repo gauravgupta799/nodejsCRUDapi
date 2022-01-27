@@ -5,6 +5,7 @@ const userroute = require('./API/routes/user')
 const logoutroute = require('./API/routes/logout')
 const homeroute = require('./API/routes/home')
 const bodyParser = require('body-parser');
+
 app.use(bodyParser.urlencoded({ extended:false}));
 app.use(bodyParser.json());
 
