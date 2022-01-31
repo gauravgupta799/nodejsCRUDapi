@@ -5,10 +5,10 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 
-// Login
+// Login api
     router.post('/',(req, res,next) => {
     User.find({username: req.body.username})
-    .exac()
+    .exec()
     .then(user=>{
         if(user.length < 1){
             return res.status(401).json({
@@ -47,9 +47,4 @@ const jwt = require('jsonwebtoken');
     })
  })
 
-
-
-
 module.exports = router;
-
-
