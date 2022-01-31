@@ -1,10 +1,11 @@
 const express = require('express');
 const router =express.Router();
 const User = require('../model/user')
+const auth = require('../middleware/auth');
 
 
 // Get all Users details
-router.get('/', (req, res)=>{
+router.get('/',auth, (req, res)=>{
     User.find()
     .then(result=>{
         res.status(200).json({
@@ -20,7 +21,7 @@ router.get('/', (req, res)=>{
 })
 
 // Get perticular user details by id
-router.get('/:id', (req, res) => {
+router.get('/:id',auth, (req, res) => {
     console.log(req.params.id)
     User.findById(req.params.id)
     .then(result=>{
