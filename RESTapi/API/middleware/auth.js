@@ -1,17 +1,21 @@
 const jwt = require('jsonwebtoken');
 
-
-module.exports = (req, res, next) => {
+ const auth = async (req, res, next) => {
     try {
         const token = req.headers.authorization.split(" ")[1];
-        console.log(token);
-        const verify = jwt.verify(token,'this is a valid token');
-        verify.userType == "admin" ? next():res.status(401).json({msg:"Not admin"})
+        const verifyUser = jwt.verify(token,'accessToken');
+        // verifyUser.userType == "admin" ? next(): res.status(401).json({msg:"Not admin"})
+        if(verifyUser.userType == "admin"){
+            next();
+        }else if(!verifyUser.userType =="admin"){
+    
+        }
     }
     catch (err) {
         return res.status(401).json({
-            message: err.message
+            message: "Invalid Token"
         })
-    }
-    
+    } 
 }
+
+module.exports= auth;
