@@ -4,12 +4,7 @@ const jwt = require('jsonwebtoken');
     try {
         const token = req.headers.authorization.split(" ")[1];
         const verifyUser = jwt.verify(token,'accessToken');
-        // verifyUser.userType == "admin" ? next(): res.status(401).json({msg:"Not admin"})
-        if(verifyUser.userType == "admin"){
-            next();
-        }else if(!verifyUser.userType =="admin"){
-    
-        }
+        verifyUser.userType == "admin" ? next(): res.status(401).json({msg:"Not admin"})
     }
     catch (err) {
         return res.status(401).json({

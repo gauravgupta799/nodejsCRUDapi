@@ -4,9 +4,10 @@ const User = require("../model/user");
 const auth = require("../middleware/auth");
 
 // Get all Users details
-router.get("/details", auth, (req, res, next) => {
+router.get("/details",(req, res, next) => {
 	User.find()
 		.then((result) => {
+			// console.log(result);
 			res.status(200).json({
 				Userdetails: result,
 			});

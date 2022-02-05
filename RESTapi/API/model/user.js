@@ -2,13 +2,14 @@ const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({
     _id:mongoose.Schema.Types.ObjectId,
-    username: String,
-    password:String,
-    qualification:String,
-    city:String,
-    phone:Number, 
-    userType:String
+    username:{type:String, required:true} ,
+    password:{type:String, required:true} ,
+    qualification:{type:String, required:true} ,
+    city:{type:String, required:true} ,
+    phone:{type:Number, required:true} , 
+    userType:{type:String, required:true},
 }); 
 
-module.exports = mongoose.model('Userdetail', userSchema);
+module.exports = ImageModel= mongoose.model('Userdetail', userSchema);
+
 

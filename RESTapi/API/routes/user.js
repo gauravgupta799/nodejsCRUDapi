@@ -4,8 +4,9 @@ const mongoose = require("mongoose");
 const User = require("../model/user");
 const bcrypt = require("bcrypt");
 
+
 // Signup
-router.post("/signup", (req, res, next) => {
+router.post("/signup",(req, res, next) => {
 	bcrypt.hash(req.body.password, 10, (err, hash) => {
 		if (err) {
 			return res.status(500).json({
@@ -37,5 +38,6 @@ router.post("/signup", (req, res, next) => {
 		}
 	});
 });
+
 
 module.exports = router;

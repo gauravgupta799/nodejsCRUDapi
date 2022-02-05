@@ -4,6 +4,8 @@ const User = require("../model/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+const refreshTokens = [];
+
 // Login
 router.post("/login", async (req, res, next) => {
 	const userfind = await User.findOne({ username: req.body.username });
@@ -22,11 +24,11 @@ router.post("/login", async (req, res, next) => {
 				city: userfind.city,
 			},
 			"accessToken",
-			{ expiresIn: "180s" }
+			{ expiresIn: "80s" }
 		);
 		const RefreshToken = jwt.sign(
 			{
-				username: userfind.username,
+				username: userfind.username, 
 				userType: userfind.userType,
 				phone: userfind.phone,
 				city: userfind.city,
@@ -34,17 +36,38 @@ router.post("/login", async (req, res, next) => {
 			"refreshToken",
 			{ expiresIn: "24h" }
 		);
-
+        refreshTokens.push(RefreshToken);
 		res.status(200).json({
 			username: userfind.username,
 			userType: userfind.userType,
 			phone: userfind.phone,
 			accessToken: AccessToken,
-			refreshToken: RefreshToken,
+			refreshToken:RefreshToken,
 		});
 	} else {
 		res.status(500).json({ error: passIsValid.error });
 	}
 });
+
+
+// RenewAccessToken
+
+router.post('/renewAccessToken', (req, res)=>{
+	const refreshToken = req.body.token;
+	// console.log(refreshToken);
+	if(!refreshToken ){
+		return res.status(403).json({ message: 'Sorry!, Token is not valid !' });
+	}
+	jwt.verify(refreshToken,"refreshToken", (err,user)=>{
+		 console.log(refreshToken);
+		if(err) {
+			const accessToken = jwt.sign({username: req.body.username}, "accessToken", {expiresIn:"2m"})
+			return res.status(200).json({accessToken});
+		}else{
+			return res.status(403).json({ message:"User is not authinticated" });
+		}
+	})
+
+})
 
 module.exports = router;
