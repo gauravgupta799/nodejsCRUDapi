@@ -1,0 +1,23 @@
+
+
+#login{
+  text-align: center;
+  color: #0d0db1;
+}
+#submit{
+  background: green;
+  outline:none;
+  border:none;
+  color:white;
+  padding: 5px 10px;
+  width: 100%;
+  font-size: 20px;
+}
+#submit:hover{
+  cursor: pointer;
+  background:rgb(7, 50, 7);
+}
+input{
+  border-radius: 5px;
+  outline: none;
+}
