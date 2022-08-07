@@ -41,29 +41,3 @@ const RegisterUser = async (req, res) => {
 };
 
 module.exports = RegisterUser;
-
-// bcrypt.hash(password, 10, (err, hash) => {
-// 	if (err) {
-// 		return res.status(401).json({
-// 			error: err
-// 		});
-// 	}else {
-// 		const user = new User({
-// 			_id: new mongoose.Types.ObjectId(),
-// 			username, password: hash, qualification, city, phone, userType:userType ? userType : "User",
-// 		});
-// 		user.save()
-// 		.then((result) => {
-// 			console.log(result);
-// 			res.status(200).json({
-// 				newUser: result,
-// 			});
-// 		})
-// 		.catch((err) => {
-// 			console.log(err);
-// 			res.status(401).json({
-// 				error: err,
-// 			});
-// 		});
-// 	}
-// });
